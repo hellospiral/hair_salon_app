@@ -95,3 +95,10 @@ patch('/clients/:id') do
   @client.update({name: name, phone: phone, email: email})
   erb(:client)
 end
+
+delete('/clients/:id') do
+  client = Client.find(params['id'].to_i)
+  client.delete()
+  @clients = Client.all()
+  erb(:clients)
+end

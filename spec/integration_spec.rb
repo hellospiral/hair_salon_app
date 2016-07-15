@@ -111,4 +111,13 @@ describe('the client path', {:type => :feature}) do
     click_button('Update Client')
     expect(page).to have_content('123-456-7890')
   end
+
+  it('deletes a client') do
+    test_client = Client.new({name: 'Jamie Smith', phone: '234-543-1234', email: 'jamie@gmail.com'})
+    test_client.save()
+    visit('/clients')
+    click_link(test_client.name)
+    click_button('Delete')
+    expect(page).to have_no_content('Jamie Smith')
+  end
 end
