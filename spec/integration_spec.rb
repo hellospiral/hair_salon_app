@@ -100,4 +100,15 @@ describe('the client path', {:type => :feature}) do
     expect(page).to have_content(test_client.phone)
     expect(page).to have_content(test_client.email)
   end
+
+  it('updates the information for a client') do
+    test_client = Client.new({name: 'Jamie Smith', phone: '234-543-1234', email: 'jamie@gmail.com'})
+    test_client.save()
+    visit('/clients')
+    click_link(test_client.name())
+    click_link('Edit')
+    fill_in('Edit Phone Number', with: '123-456-7890')
+    click_button('Update Client')
+    expect(page).to have_content('123-456-7890')
+  end
 end

@@ -81,3 +81,17 @@ get('/clients/:id') do
   @client = Client.find(params['id'].to_i)
   erb(:client)
 end
+
+get('/clients/:id/edit') do
+  @client = Client.find(params['id'].to_i)
+  erb(:edit_client_form)
+end
+
+patch('/clients/:id') do
+  @client = Client.find(params['id'].to_i)
+  name = params['name']
+  phone = params['phone']
+  email = params['email']
+  @client.update({name: name, phone: phone, email: email})
+  erb(:client)
+end
