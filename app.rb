@@ -37,7 +37,7 @@ end
 
 get('/stylists/:id') do
   @stylist = Stylist.find(params['id'].to_i)
-  # @clients = @stylist.clients()
+  @clients = Client.all()
   erb(:stylist)
 end
 
@@ -48,6 +48,7 @@ end
 
 patch('/stylists/:id') do
   @stylist = Stylist.find(params['id'].to_i)
+  @clients = Client.all()
   name = params['name']
   phone = params['phone']
   email = params['email']
@@ -101,4 +102,13 @@ delete('/clients/:id') do
   client.delete()
   @clients = Client.all()
   erb(:clients)
+end
+
+patch('/stylist/:id/clients') do
+  client = Client.find(params['client_id'].to_i)
+  stylist_id = params['id']
+  client.update({stylist_id: stylist_id})
+  @stylist = Stylist.find(params['id'].to_i)
+  @clients = Client.all()
+  erb(:stylist)
 end

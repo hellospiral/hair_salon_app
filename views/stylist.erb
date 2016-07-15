@@ -10,9 +10,37 @@
     <a href="/stylists/<%= @stylist.id() %>/edit" class="btn btn-default" role="button">Edit Stylist</a>
     <form action="/stylists/<%= @stylist.id() %>" method="post">
       <input name="_method" type="hidden" value="delete">
-      <button class="btn btn-danger" type="submit">Delete book</button>
+      <button class="btn btn-danger" type="submit">Delete stylist</button>
     </form>
   </div>
+
+  <% if @stylist.clients().any? %>
+
+    <h3>Here are <%=@stylist.name()%>'s current clients: </h3>
+
+    <ul class="list-group">
+      <% @stylist.clients().each() do |client| %>
+        <li class = "list-group-item"> <%= client.name() %> </li>
+      <% end %>
+    </ul>
+
+  <% else %>
+    <p> <%= @stylist.name() %> doesn't have any current clients </p>
+  <% end %>
+
+  <% if @clients.any? %>
+    <h3>Add a client to <%= @stylist.name() %>'s schedule: </h3>
+    <br>
+    <form action="/stylist/<%= @stylist.id() %>/clients" method="post">
+      <input name="_method" type="hidden" value="patch">
+      <select id  = "client_id" class="" name="client_id" type = "text">
+        <% @clients.each() do |client| %>
+          <option value="<%= client.id()%>"> <%= client.name() %> </option>
+        <% end %>
+      </select>
+      <button class="btn btn-primary active" type="submit" name="add_client">Add Client</button>
+    </form>
+  <% end %>
 
 <br>
 <hr>

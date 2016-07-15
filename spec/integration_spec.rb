@@ -74,6 +74,19 @@ describe('the stylist path', {:type => :feature}) do
     click_button('Delete')
     expect(page).to have_no_content('Jamie Smith')
   end
+
+  it('adds a client to a stylist') do
+    test_stylist = Stylist.new({name: 'Jamie Smith', phone: '234-543-1234', email: 'jamie@gmail.com'})
+    test_stylist.save()
+    test_client = Client.new({name: 'Bob Jones', phone: '234-543-1234', email: 'bob@gmail.com'})
+    test_client.save()
+    visit('/stylists')
+    click_link(test_stylist.name)
+    select('Bob Jones')
+    click_button('Add Client')
+    expect(page).to have_content('Bob Jones')
+
+  end
 end
 
 describe('the client path', {:type => :feature}) do
