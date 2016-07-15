@@ -5,31 +5,30 @@
     <li class = "list-group-item">Phone Number:   <%= @stylist.phone() %> </li>
     <li class = "list-group-item">Email Address:   <%= @stylist.email() %> </li>
   </ul>
-
   <div class="btn-group" role="group">
-    <a href="/stylists/<%= @stylist.id() %>/edit" class="btn btn-default" role="button">Edit Stylist</a>
+    <a href="/stylists/<%= @stylist.id() %>/edit" class="btn btn-warning" role="button">Edit Stylist</a>
     <form action="/stylists/<%= @stylist.id() %>" method="post">
       <input name="_method" type="hidden" value="delete">
       <button class="btn btn-danger" type="submit">Delete stylist</button>
     </form>
   </div>
-
+<br><br>
   <% if @stylist.clients().any? %>
 
     <h3>Here are <%=@stylist.name()%>'s current clients: </h3>
 
     <ul class="list-group">
       <% @stylist.clients().each() do |client| %>
-        <li class = "list-group-item"> <%= client.name() %> </li>
+        <li class = "list-group-item"> <a href="/clients/<%=client.id%>"><%= client.name() %></a></li>
       <% end %>
     </ul>
 
   <% else %>
-    <p> <%= @stylist.name() %> doesn't have any current clients </p>
+    <h3> <%= @stylist.name() %> doesn't have any current clients </h3>
   <% end %>
 
   <% if @clients.any? %>
-    <h3>Add a client to <%= @stylist.name() %>'s schedule: </h3>
+    <h4>Add a client to <%= @stylist.name() %>'s schedule: </h4>
     <br>
     <form action="/stylist/<%= @stylist.id() %>/clients" method="post">
       <input name="_method" type="hidden" value="patch">
