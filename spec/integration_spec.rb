@@ -85,4 +85,19 @@ describe('the client path', {:type => :feature}) do
     click_button("Add Client")
     expect(page).to have_content("Bob Jones")
   end
+
+  it('tells you if no clients have been added') do
+    visit('/clients')
+    expect(page).to have_content('No clients have been added')
+  end
+
+  it('views a particular client and displays their information') do
+    test_client = Client.new({name: 'Jamie Smith', phone: '234-543-1234', email: 'jamie@gmail.com'})
+    test_client.save()
+    visit('/clients')
+    click_link(test_client.name())
+    expect(page).to have_content(test_client.name)
+    expect(page).to have_content(test_client.phone)
+    expect(page).to have_content(test_client.email)
+  end
 end

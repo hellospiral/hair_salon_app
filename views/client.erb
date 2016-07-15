@@ -1,0 +1,22 @@
+
+  <h1> <%= @client.name() %> </h1>
+
+  <ul class="list-group">
+    <li class = "list-group-item">Phone Number:   <%= @client.phone() %> </li>
+    <li class = "list-group-item">Email Address:   <%= @client.email() %> </li>
+  </ul>
+
+  <div class="btn-group" role="group">
+    <a href="/clients/<%= @client.id() %>/edit" class="btn btn-default" role="button">Edit Client</a>
+    <form action="/clients/<%= @client.id() %>" method="post">
+      <input name="_method" type="hidden" value="delete">
+      <button class="btn btn-danger" type="submit">Delete book</button>
+    </form>
+  </div>
+
+<br>
+<hr>
+
+<div class="btn-group" role="group">
+  <a href="/" class="btn btn-default active" role="button">Home</a>
+</div>

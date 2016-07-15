@@ -72,7 +72,12 @@ post('/clients') do
   erb(:clients)
 end
 
-get('clients') do
+get('/clients') do
   @clients = Client.all()
   erb(:clients)
+end
+
+get('/clients/:id') do
+  @client = Client.find(params['id'].to_i)
+  erb(:client)
 end
