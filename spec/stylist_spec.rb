@@ -45,4 +45,16 @@ describe(Stylist) do
       expect(Stylist.find(test_stylist.id())).to(eq(test_stylist))
     end
   end
+
+  describe('#clients') do
+    it ('returns an array of clients belonging to a stylist') do
+      test_stylist = Stylist.new({name: 'Mike Smith', phone: '206-111-2343', email: 'mike@gmail.com', id: nil})
+      test_stylist.save()
+      test_client = Client.new({name: 'Joey Rhu', phone: '306-111-2343', email: 'joey@gmail.com', stylist_id: test_stylist.id, id: nil})
+      test_client.save()
+      test_client2 = Client.new({name: 'Bob Smith', phone: '406-111-2343', email: 'bob@gmail.com', stylist_id: test_stylist.id, id: nil})
+      test_client2.save()
+      expect(test_stylist.clients()).to(eq([test_client, test_client2]))
+    end
+  end
 end

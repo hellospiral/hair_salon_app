@@ -1,9 +1,10 @@
 class Client
-  attr_reader(:name, :phone, :email, :id)
+  attr_reader(:name, :phone, :email, :stylist_id, :id)
   define_method(:initialize) do |attributes|
     @name = attributes.fetch(:name)
     @phone = attributes.fetch(:phone)
     @email = attributes.fetch(:email)
+    @stylist_id = attributes.fetch(:stylist_id)
     @id = attributes.fetch(:id) || nil
   end
 
@@ -11,6 +12,7 @@ class Client
     self.name == another_client.name &&
     self.phone == another_client.phone &&
     self.email == another_client.email &&
+    self.stylist_id == another_client.stylist_id &&
     self.id == another_client.id
   end
 
@@ -21,14 +23,15 @@ class Client
       name = client.fetch("name")
       phone = client.fetch("phone")
       email = client.fetch("email")
+      stylist_id = client.fetch("stylist_id").to_i()
       id = client.fetch("id").to_i()
-      clients.push(Client.new({:name => name, :phone => phone, :email => email, :id => id}))
+      clients.push(Client.new({:name => name, :phone => phone, :email => email, :stylist_id => stylist_id, :id => id}))
     end
     clients
   end
 
   define_method(:save) do
-    result = DB.exec("INSERT INTO clients (name, phone, email) VALUES ('#{@name}', '#{@phone}', '#{@email}') RETURNING id;")
+    result = DB.exec("INSERT INTO clients (name, phone, email, stylist_id) VALUES ('#{@name}', '#{@phone}', '#{@email}', '#{@stylist_id}') RETURNING id;")
     @id = result.first().fetch("id").to_i()
   end
 
