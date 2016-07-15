@@ -6,7 +6,7 @@ require("./lib/stylist")
 require('pg')
 require('pry')
 
-DB = PG.connect({:dbname => "hair_salon_test"})
+DB = PG.connect({:dbname => "hair_salon"})
 
 get('/') do
   erb(:index)
