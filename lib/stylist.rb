@@ -4,7 +4,7 @@ class Stylist
     @name = attributes.fetch(:name)
     @phone = attributes.fetch(:phone)
     @email = attributes.fetch(:email)
-    @id = attributes.fetch(:id)
+    @id = attributes.fetch(:id) || nil
   end
 
   define_method(:==) do |another_stylist|
