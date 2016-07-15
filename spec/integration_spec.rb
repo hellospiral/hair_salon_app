@@ -1,6 +1,7 @@
 require('capybara/rspec')
 require('./app')
 require('launchy')
+require('pry')
 
 Capybara.app = Sinatra::Application
 set(:show_exceptions, false)
@@ -72,5 +73,16 @@ describe('the stylist path', {:type => :feature}) do
     click_link(test_stylist.name)
     click_button('Delete')
     expect(page).to have_no_content('Jamie Smith')
+  end
+end
+
+describe('the client path', {:type => :feature}) do
+  it('creates a client and lists it out') do
+    visit('/clients/new')
+    fill_in("name", with: "Bob Jones")
+    fill_in("phone", with: "234-432-1234")
+    fill_in("email", with: "bob@gmail.com")
+    click_button("Add Client")
+    expect(page).to have_content("Bob Jones")
   end
 end

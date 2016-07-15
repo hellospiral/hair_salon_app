@@ -4,8 +4,8 @@ class Client
     @name = attributes.fetch(:name)
     @phone = attributes.fetch(:phone)
     @email = attributes.fetch(:email)
-    @stylist_id = attributes.fetch(:stylist_id)
-    @id = attributes.fetch(:id) || nil
+    @stylist_id = attributes[:stylist_id] || 0
+    @id = attributes[:id] || nil
   end
 
   define_method(:==) do |another_client|
@@ -31,7 +31,7 @@ class Client
   end
 
   define_method(:save) do
-    result = DB.exec("INSERT INTO clients (name, phone, email, stylist_id) VALUES ('#{@name}', '#{@phone}', '#{@email}', '#{@stylist_id}') RETURNING id;")
+    result = DB.exec("INSERT INTO clients (name, phone, email, stylist_id) VALUES ('#{@name}', '#{@phone}', '#{@email}', #{@stylist_id}) RETURNING id;")
     @id = result.first().fetch("id").to_i()
   end
 

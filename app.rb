@@ -4,6 +4,7 @@ also_reload("lib/**/*.rb")
 require("./lib/client")
 require("./lib/stylist")
 require('pg')
+require('pry')
 
 DB = PG.connect({:dbname => "hair_salon_test"})
 
@@ -59,4 +60,19 @@ delete('/stylists/:id') do
   stylist.delete()
   @stylists = Stylist.all()
   erb(:stylists)
+end
+
+post('/clients') do
+  name = params['name']
+  phone = params['phone']
+  email = params['email']
+  client = Client.new({name: name, phone: phone, email: email})
+  client.save()
+  @clients = Client.all()
+  erb(:clients)
+end
+
+get('clients') do
+  @clients = Client.all()
+  erb(:clients)
 end
