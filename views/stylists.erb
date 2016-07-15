@@ -1,0 +1,18 @@
+<h2>Available Stylists:</h2>
+<hr>
+
+<% if @stylists.any? %>
+  <ul class="list-group">
+    <% @stylists.each() do |stylist| %>
+      <li class="list-group-item">
+        <a href="/stylists/<%=stylist.id()%>"><%= stylist.name() %></a>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <h3>No stylists have been added</h3>
+<% end %>
+<div class="btn-group" role="group">
+  <a href="/" class="btn btn-default" role="button">Home</a>
+  <a href="/stylists/new" class="btn btn-warning active" role="button">Add New Stylist</a>
+</div>
