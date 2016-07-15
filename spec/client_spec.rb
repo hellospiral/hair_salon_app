@@ -45,4 +45,24 @@ describe(Client) do
       expect(Client.find(test_client.id())).to(eq(test_client))
     end
   end
+
+  describe('#update') do
+    it('lets you update a clients information') do
+      test_client = Client.new({name: 'Mike Smith', phone: '206-111-2343', email: 'mike@gmail.com', stylist_id: 1, id: nil})
+      test_client.save()
+      test_client.update({name: 'Bobby Jones'})
+      expect(test_client.name()).to(eq('Bobby Jones'))
+    end
+  end
+
+  describe('#delete') do
+    it('deletes a client from the database') do
+      test_client = Client.new({name: 'Mike Smith', phone: '206-111-2343', email: 'mike@gmail.com', stylist_id: 1, id: nil})
+      test_client.save()
+      test_client2 = Client.new({name: 'Bob Smith', phone: '306-111-2343', email: 'bob@gmail.com', stylist_id: 1, id: nil})
+      test_client2.save()
+      test_client.delete()
+      expect(Client.all()).to(eq([test_client2]))
+    end
+  end
 end
