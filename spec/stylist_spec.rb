@@ -57,4 +57,24 @@ describe(Stylist) do
       expect(test_stylist.clients()).to(eq([test_client, test_client2]))
     end
   end
+
+  describe('#update') do
+    it('lets you update a stylists information') do
+      test_stylist = Stylist.new({name: 'Mike Smith', phone: '206-111-2343', email: 'mike@gmail.com', id: nil})
+      test_stylist.save()
+      test_stylist.update({name: 'Bobby Jones'})
+      expect(test_stylist.name()).to(eq('Bobby Jones'))
+    end
+  end
+
+  describe('#delete') do
+    it('deletes a stylist from the database') do
+      test_stylist = Stylist.new({name: 'Mike Smith', phone: '206-111-2343', email: 'mike@gmail.com', id: nil})
+      test_stylist.save()
+      test_stylist2 = Stylist.new({name: 'Bob Smith', phone: '306-111-2343', email: 'bob@gmail.com', id: nil})
+      test_stylist2.save()
+      test_stylist.delete()
+      expect(Stylist.all()).to(eq([test_stylist2]))
+    end
+  end
 end

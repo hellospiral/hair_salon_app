@@ -55,4 +55,15 @@ class Stylist
     end
     stylists_clients
   end
+
+  define_method(:update) do |attributes|
+    @name = attributes.fetch(:name, @name)
+    @phone = attributes.fetch(:phone, @phone)
+    @email = attributes.fetch(:email, @email)
+    DB.exec("UPDATE stylists SET name = '#{@name}', phone = '#{@phone}', email = '#{@email}' WHERE id = #{self.id()};")
+  end
+
+  define_method(:delete) do
+    DB.exec("DELETE FROM stylists WHERE id = #{self.id()};")
+  end
 end
