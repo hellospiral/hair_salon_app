@@ -53,3 +53,10 @@ patch('/stylists/:id') do
   @stylist.update({name: name, phone: phone, email: email})
   erb(:stylist)
 end
+
+delete('/stylists/:id') do
+  stylist = Stylist.find(params['id'].to_i)
+  stylist.delete()
+  @stylists = Stylist.all()
+  erb(:stylists)
+end

@@ -64,4 +64,13 @@ describe('the stylist path', {:type => :feature}) do
     click_button('Update Stylist')
     expect(page).to have_content('123-456-7890')
   end
+
+  it('deletes a stylist') do
+    test_stylist = Stylist.new({name: 'Jamie Smith', phone: '234-543-1234', email: 'jamie@gmail.com'})
+    test_stylist.save()
+    visit('/stylists')
+    click_link(test_stylist.name)
+    click_button('Delete')
+    expect(page).to have_no_content('Jamie Smith')
+  end
 end
