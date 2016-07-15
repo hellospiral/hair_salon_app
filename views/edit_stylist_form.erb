@@ -1,0 +1,14 @@
+<form class="well" action="/stylists/<%= @stylist.id() %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+  <div class="form-group">
+    <label for="name">Edit Name </label>
+    <input id = "name" type="text" name="name" value="<%=@stylist.name%>" class="form-control">
+    <label for="phone">Edit Phone Number </label>
+    <input id = "phone" type="text" name="phone" value="<%=@stylist.phone%>" class="form-control">
+    <label for="email">Edit Email Address </label>
+    <input id = "email" type="text" name="email" value="<%=@stylist.email%>" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-success">Update Stylist</button>
+</form>
+
+<a href="/" class="btn btn-default active" role="button">Home</a>

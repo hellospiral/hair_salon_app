@@ -1,5 +1,6 @@
 require('capybara/rspec')
 require('./app')
+require('launchy')
 
 Capybara.app = Sinatra::Application
 set(:show_exceptions, false)
@@ -51,5 +52,16 @@ describe('the stylist path', {:type => :feature}) do
     expect(page).to have_content(test_stylist.name)
     expect(page).to have_content(test_stylist.phone)
     expect(page).to have_content(test_stylist.email)
+  end
+
+  it('updates the information for a stylist') do
+    test_stylist = Stylist.new({name: 'Jamie Smith', phone: '234-543-1234', email: 'jamie@gmail.com'})
+    test_stylist.save()
+    visit('/stylists')
+    click_link(test_stylist.name())
+    click_link('Edit')
+    fill_in('Edit Phone Number', with: '123-456-7890')
+    click_button('Update Stylist')
+    expect(page).to have_content('123-456-7890')
   end
 end

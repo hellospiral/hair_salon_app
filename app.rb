@@ -39,3 +39,17 @@ get('/stylists/:id') do
   # @clients = @stylist.clients()
   erb(:stylist)
 end
+
+get('/stylists/:id/edit') do
+  @stylist = Stylist.find(params['id'].to_i)
+  erb(:edit_stylist_form)
+end
+
+patch('/stylists/:id') do
+  @stylist = Stylist.find(params['id'].to_i)
+  name = params['name']
+  phone = params['phone']
+  email = params['email']
+  @stylist.update({name: name, phone: phone, email: email})
+  erb(:stylist)
+end

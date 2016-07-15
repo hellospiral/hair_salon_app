@@ -5,6 +5,10 @@
   <li class = "list-group-item">Email Address:   <%= @stylist.email() %> </li>
 </ul>
 
+<div class="btn-group" role="group">
+  <a href="/stylists/<%= @stylist.id() %>/edit" class="btn btn-default" role="button">Edit Stylist</a>
+</div>
+
 <br>
 <hr>
 
